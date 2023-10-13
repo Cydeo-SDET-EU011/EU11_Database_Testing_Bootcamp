@@ -153,3 +153,124 @@ select max(salary) from EMPLOYEES
 where SALARY < (Select max(SALARY) from EMPLOYEES);
 
 -- string functions
+-- concatenation    ||
+select FIRST_NAME, LAST_NAME from EMPLOYEES;
+select FIRST_NAME ||' '||LAST_NAME as fullName from EMPLOYEES;
+
+--upper   lower
+select upper(LAST_NAME) from EMPLOYEES;
+select FIRST_NAME ||' '||upper(LAST_NAME) as fullName from EMPLOYEES;
+
+--length
+select FIRST_NAME, length(FIRST_NAME) from EMPLOYEES;
+
+--substring
+--sub(david,2,2)  --
+select FIRST_NAME, substr(FIRST_NAME,2,2) from EMPLOYEES
+where FIRST_NAME = 'David';
+
+
+--initcap
+select initcap(EMAIL) from EMPLOYEES;
+
+
+--join
+-- (INNER) JOIN: Returns records that have matching values in both tables
+-- LEFT (OUTER) JOIN: Returns all records from the left table, and the matched records from the right table
+-- RIGHT (OUTER) JOIN: Returns all records from the right table, and the matched records from the left table
+-- FULL (OUTER) JOIN: Returns all records when there is a match in either left or right table
+
+--inner join
+select * from EMPLOYEES;
+select START_DATE from JOB_HISTORY;
+select * from JOB_HISTORY;
+
+select FIRST_NAME, START_DATE, END_DATE from JOB_HISTORY
+inner join EMPLOYEES
+on EMPLOYEES.EMPLOYEE_ID = JOB_HISTORY.EMPLOYEE_ID;
+
+select FIRST_NAME, START_DATE, END_DATE from JOB_HISTORY
+left join EMPLOYEES
+on JOB_HISTORY.EMPLOYEE_ID = EMPLOYEES.EMPLOYEE_ID;
+
+select FIRST_NAME, START_DATE, END_DATE from EMPLOYEES
+right join JOB_HISTORY
+           on JOB_HISTORY.EMPLOYEE_ID = EMPLOYEES.EMPLOYEE_ID;
+
+select FIRST_NAME, START_DATE, END_DATE from JOB_HISTORY
+full outer join  EMPLOYEES
+on JOB_HISTORY.EMPLOYEE_ID = EMPLOYEES.EMPLOYEE_ID;
+
+
+-- DQL   data query language  --> select, where, join   most important
+-- DML   data manipulation language --> insert, update
+-- DDL   data definition language --> create, alter, drop
+-- DMl   data management language --> commit, savepoint
+
+
+-- CREATE TABLE
+create table Teachers11(
+                         T_id integer primary key ,
+                         T_name char(40),
+                         T_branch char(40)
+);
+
+create table Students11(
+                         S_id integer primary key ,
+                         S_name char(40),
+                         S_branch char(40)
+
+);
+
+-- INSERT DATA
+insert into TEACHERS11 VALUES (100,'Jamal','API');
+SELECT * FROM TEACHERS11;
+
+--UPDATE DATA
+UPDATE TEACHERS11
+SET T_BRANCH = 'Database Testing'
+where T_ID = 100;
+
+delete TEACHERS11
+where T_ID = 100;
+
+-- alter
+-- add column
+alter table TEACHERS11
+add address varchar(60);
+
+-- change column name
+alter table TEACHERS11 rename column address to state;
+
+-- delete column
+alter table TEACHERS11 drop column state;
+
+-- change table name
+alter table TEACHERS11 rename to CydeoTeachers;
+
+select * from CYDEOTEACHERS;
+
+-- truncate ( only deleting the data, but remain the table)
+insert into CYDEOTEACHERS values (100,'Jamal','API');
+truncate table CYDEOTEACHERS;
+
+-- drop table ( deleting whole table)
+drop table CYDEOTEACHERS;
+
+-- set operators
+--union
+select FIRST_NAME from EMPLOYEES
+union
+select city from LOCATIONS;
+
+
+-- union all
+select FIRST_NAME from EMPLOYEES
+union all
+select city from LOCATIONS;
+
+-- union all is combining all the data, but union is removing duplicated ones and order them
+-- minus
+-- intersect
+
+
